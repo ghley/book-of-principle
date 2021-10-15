@@ -26,7 +26,6 @@ import java.util.List;
 
 public class ComponentsTest {
 
-    private EntityManager manager;
     private Components<TestComponent> components;
     private List<Entity> entityList;
     private List<TestComponent> componentList;
@@ -34,7 +33,7 @@ public class ComponentsTest {
     @BeforeEach
     public  void before() {
         components = new Components<>(TestComponent.class);
-        manager = new EntityManager();
+        EntityManager manager = new EntityManager();
         entityList = new ArrayList<>();
         componentList = new ArrayList<>();
         for (int q = 0; q < 100; q++) {
@@ -94,6 +93,7 @@ public class ComponentsTest {
     }
 
 
+     @SuppressWarnings("unused")
      public static class TestComponent implements Component<TestComponent> {
         public int number = 0;
 
