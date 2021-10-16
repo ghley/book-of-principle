@@ -16,15 +16,13 @@
  * along with this program.
  */
 
-package dev.biblyon.essence.ecs;
+package dev.biblyon.principle.ecs;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class EntityManagerTest {
 

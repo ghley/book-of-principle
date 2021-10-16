@@ -16,7 +16,7 @@
  * along with this program.
  */
 
-package dev.biblyon.essence.ecs;
+package dev.biblyon.principle.ecs;
 
 public class Entity {
     private static final int INDEX_BITS = 23;

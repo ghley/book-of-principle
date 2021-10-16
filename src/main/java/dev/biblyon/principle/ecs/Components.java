@@ -16,7 +16,7 @@
  * along with this program.
  */
 
-package dev.biblyon.essence.ecs;
+package dev.biblyon.principle.ecs;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;

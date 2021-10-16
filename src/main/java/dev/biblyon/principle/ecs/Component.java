@@ -16,7 +16,7 @@
  * along with this program.
  */
 
-package dev.biblyon.essence.ecs;
+package dev.biblyon.principle.ecs;
 
 public interface Component<T extends Component> {
     void set(T component);

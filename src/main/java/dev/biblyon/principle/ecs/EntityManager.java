@@ -16,7 +16,7 @@
  * along with this program.
  */
 
-package dev.biblyon.essence.ecs;
+package dev.biblyon.principle.ecs;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
