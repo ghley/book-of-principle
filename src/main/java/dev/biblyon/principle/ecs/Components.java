@@ -107,6 +107,8 @@ public class Components<T extends Component> {
         return components[index];
     }
 
+
+
     private void swapComponent(int index1, int index2) {
         Entity tempEntity = entities[index1];
         T tempComponent = components[index1];
@@ -142,6 +144,18 @@ public class Components<T extends Component> {
             t.printStackTrace();
         }
         return null;
+    }
+
+    public Entity[] getEntities() {
+        return entities;
+    }
+
+    public int getNumComponents() {
+        return numComponents;
+    }
+
+    public int getSleepingIndex() {
+        return sleepingIndex;
     }
 
     private int prepareAndGetIndex(boolean isSleeping) {
