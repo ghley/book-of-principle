@@ -18,7 +18,6 @@
 
 package dev.biblyon.principle.ecs;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -30,8 +29,7 @@ public class ComponentsTest {
     private List<Entity> entityList;
     private List<TestComponent> componentList;
 
-    @BeforeEach
-    public  void before() {
+    public void before() {
         components = new Components<>(TestComponent.class);
         EntityManager manager = new EntityManager();
         entityList = new ArrayList<>();
@@ -44,6 +42,7 @@ public class ComponentsTest {
 
     @Test
     public void testInsert() {
+        before();
         for (int q = 0; q < entityList.size(); q++) {
             components.addComponent(entityList.get(q), componentList.get(q), false);
         }
@@ -55,6 +54,7 @@ public class ComponentsTest {
 
     @Test
     public void testRemove() {
+        before();
         for (int q = 0; q < entityList.size(); q++) {
             components.addComponent(entityList.get(q), componentList.get(q), false);
         }
@@ -63,6 +63,7 @@ public class ComponentsTest {
 
     @Test
     public void testSleeping() {
+        before();
         for (int q = 0; q < 10; q++) {
             components.addComponent(entityList.get(q), componentList.get(q), false);
         }
@@ -77,6 +78,7 @@ public class ComponentsTest {
 
     @Test
     public void testSetSleeping() {
+        before();
         for (int q = 0; q < 20; q++) {
             components.addComponent(entityList.get(q), componentList.get(q), q < 10);
         }

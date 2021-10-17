@@ -28,13 +28,9 @@ public class EntityManagerTest {
 
     private EntityManager manager;
 
-    @BeforeEach
-    public void before() {
-        manager = new EntityManager();
-    }
-
     @Test
     public void createEntity() {
+        manager = new EntityManager();
         var entity1 = manager.createEntity();
         var entity2 = manager.createEntity();
         assert entity1.getIndex() == 0;
@@ -45,6 +41,7 @@ public class EntityManagerTest {
 
     @Test
     public void destroyEntity() {
+        manager = new EntityManager();
         var entity = manager.createEntity();
         manager.destroyEntity(entity);
         assert !manager.isValid(entity);
@@ -52,6 +49,7 @@ public class EntityManagerTest {
 
     @Test
     public void testGeneration() {
+        manager = new EntityManager();
         var entities = IntStream.range(0, 1004).mapToObj(d->manager.createEntity()).collect(Collectors.toList());
         entities.forEach(manager::destroyEntity);
 
