@@ -1,41 +1,46 @@
-/*
- * Book of Essence
- * Copyright (C) 2021 Ghley
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.
- */
-
 package dev.biblyon.principle.ecs;
 
+import java.util.BitSet;
+import java.util.HashMap;
+import java.util.Map;
+
 public class Entity {
-    private static final int INDEX_BITS = 23;
-    private static final int INDEX_BITS_MASK = (1 << INDEX_BITS) - 1;
-    private static final int GEN_BITS = 32 - INDEX_BITS;
-    private static final int GEN_BITS_MASK = (1 << GEN_BITS) - 1;
+    private final World world;
+    final long id;
+    final BitSet mask = new BitSet();
+    private final Map<Class<? extends Component>, Component> components = new HashMap<>();
 
-    private int id;
-
-    Entity(int index, int generation) {
-        id = index | (generation << INDEX_BITS);
+    Entity(World world, long id) {
+        this.world = world;
+        this.id = id;
     }
 
-    public int getIndex() {
-       return id & INDEX_BITS_MASK;
+    public  void addComponent(Class<? extends Component>... clazz) {
+        for (var c : clazz) {
+            if (!components.containsKey(clazz)) {
+                if (!components.containsKey(c)) {
+                    try {
+                        components.put(c, c.getConstructor().newInstance());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                mask.set(world.getComponentBit(c));
+                world.updateMask(this);
+            }
+        }
     }
 
-    public int getGeneration() {
-        return (id >> INDEX_BITS) & GEN_BITS_MASK;
+    public <T extends Component> T getComponent(Class<T> clazz) {
+        return (T)components.getOrDefault(clazz, null);
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public BitSet getMask() {
+        return mask;
     }
 
     @Override
@@ -45,11 +50,11 @@ public class Entity {
 
         Entity entity = (Entity) o;
 
-        return getIndex() == entity.getIndex();
+        return id == entity.id;
     }
 
     @Override
     public int hashCode() {
-        return getIndex();
+        return (int) (id ^ (id >>> 32));
     }
 }

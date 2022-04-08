@@ -1,11 +1,13 @@
 package dev.biblyon.principle.math;
 
+import dev.biblyon.principle.ecs.Component;
+import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 public class Transform {
-    private Vector3f position;
-    private Quaternionf orientation;
+    private Vector3f position = new Vector3f();
+    private Quaternionf orientation = new Quaternionf();
 
     public Vector3f getPosition() {
         return position;
@@ -15,10 +17,7 @@ public class Transform {
         return orientation;
     }
 
-    public void set(Transform transform) {
-        this.position.set(transform.position);
-        this.orientation.set(transform.orientation);
+    public Matrix4f getTransformMatrix() {
+        return new Matrix4f().translationRotateScale(position, orientation, 1.f);
     }
-
-
 }
